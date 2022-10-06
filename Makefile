@@ -20,10 +20,10 @@ all: $(PROBLEM_SET)
 	@mkdir -p ./dll
 
 install: ./dll
-	@$(CC) ./include/sqlite3.c -fPIC -shared -o ./dll/sqlite3.so
+	@$(CC) ./include/sqlite3.c -fPIC -shared -lpthread -ldl -lm -o ./dll/sqlite3.so
 
 $(PROBLEM_SET): $(BIN_DIR)
-	@$(CC) $(SRC_DIR)/$(@).c ./dll/sqlite3.so $(CFLAGS) $(LDFLAGS) $(LDLIBS) -o $(BIN_DIR)/$@.out
+	@$(CC) $(SRC_DIR)/$(@).c ./dll/sqlite3.so $(CFLAGS) $(LDFLAGS) $(LDLIBS) -lpthread -ldl -lm -o $(BIN_DIR)/$@.out
 
 $(BIN_DIR):
 	@mkdir -p $(BIN_DIR)
